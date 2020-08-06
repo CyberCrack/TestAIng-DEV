@@ -1,4 +1,6 @@
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.model_selection import GridSearchCV
+
 from sklearn.svm import SVC
 
 from Utility import getData, printMetrics, getMetrics, logAndSave
@@ -13,8 +15,11 @@ else:
 
 def AdaBoostModel(splitData, X_train, X_test, y_train, y_test):
 	svc = SVC()
-	clf = AdaBoostClassifier(base_estimator=svc, n_estimators=100, algorithm='SAMME')
-	clf.fit(X_train, y_train.ravel())
+	clf = AdaBoostClassifier(base_estimator=svc, algorithm='SAMME')
+	grid_values = {'base_estimator__kernel': ['linear', 'poly', 'rbf', 'sigmoid'],'base_estimator__C': [x / 10 for x in range(1, 11)],'base_estimator__degree': list(range(3, 5))}
+	grid_clf_acc = GridSearchCV(clf, param_grid=grid_values, scoring=['roc_auc', 'f1', 'accuracy'], refit='roc_auc')
+	grid_clf_acc.fit(X_train, y_train.ravel())
+	clf = grid_clf_acc.best_estimator_
 
 	if splitData:
 		y_preds = clf.predict(X_test)
@@ -29,7 +34,7 @@ def AdaBoostModel(splitData, X_train, X_test, y_train, y_test):
 	metrics = (acc, pre, recall, auc, f1)
 	# print("acc-" + str(acc) + "\tprecision-" + str(pre) + "\trecall-" + str(recall) + "\tauc-" + str(auc) + "\tf1-" + str(f1) + "\tval_accuracy-" + str(val_acc) + "\tval_precision-" + str(val_pre) + "\tval_recall-" + str(val_recall) + "\tval_auc-" + str(val_auc) + "\tval_f1-" + str(val_f1) + "\n")
 
-	logAndSave(name_of_model="AdaBoost", clf=clf, metrics=metrics, val_metrics=val_metrics)
+	logAndSave(name_of_model="AdaBoostGS", clf=clf, metrics=metrics, val_metrics=val_metrics)
 
 
 if __name__ == "__main__":

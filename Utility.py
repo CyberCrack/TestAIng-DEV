@@ -17,7 +17,6 @@ def getData(splitData=True, useImbalancer=False, useStratify=False):
 	global standard_scaler
 	data = pd.read_csv(filepath_or_buffer="DataSource/binary.csv")
 	X = data.values[:, 1:-1]
-	# X[:, 0] = X[:, 0] / 100
 	rank_dummy = pd.get_dummies(data['rank'], drop_first=True).to_numpy()
 	X = np.concatenate((X, rank_dummy), axis=1)
 	y = data.values[:, 0].reshape(-1, 1)

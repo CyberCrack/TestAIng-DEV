@@ -1,8 +1,9 @@
-from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
 
 from Utility import getData, printMetrics, getMetrics, logAndSave
 
-splitData = False
+splitData = True
 if splitData:
 	X_train, X_test, y_train, y_test = getData(useImbalancer=True, useStratify=True)
 else:
@@ -10,10 +11,12 @@ else:
 	X_test, y_test = None, None
 
 
-def NeuralNetworkModel(splitData, X_train, X_test, y_train, y_test):
-	clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(8, 4), max_iter=500)
-	clf.fit(X_train, y_train.ravel())
-
+def RandomForestModel(splitData, X_train, X_test, y_train, y_test):
+	clf = RandomForestClassifier(n_estimators=100,max_depth=11,criterion="gini")
+	grid_values = {'n_estimators': list(range(100, 501, 50)), 'criterion': ['gini', 'entropy'], 'max_depth': list(range(10,21,1))}
+	grid_clf_acc = GridSearchCV(clf, param_grid=grid_values, scoring=['roc_auc', 'f1', 'accuracy'], refit='roc_auc')
+	grid_clf_acc.fit(X_train, y_train.ravel())
+	clf = grid_clf_acc.best_estimator_
 	if splitData:
 		y_preds = clf.predict(X_test)
 		printMetrics(y_test, y_preds)
@@ -22,13 +25,13 @@ def NeuralNetworkModel(splitData, X_train, X_test, y_train, y_test):
 		val_acc, val_pre, val_recall, val_auc, val_f1 = 0, 0, 0, 0, 0
 	y_preds = clf.predict(X_train)
 	acc, pre, recall, auc, f1 = getMetrics(y_train, y_preds)
-
 	val_metrics = (val_acc, val_pre, val_recall, val_auc, val_f1)
 	metrics = (acc, pre, recall, auc, f1)
 	# print("acc-" + str(acc) + "\tprecision-" + str(pre) + "\trecall-" + str(recall) + "\tauc-" + str(auc) + "\tf1-" + str(f1) + "\tval_accuracy-" + str(val_acc) + "\tval_precision-" + str(val_pre) + "\tval_recall-" + str(val_recall) + "\tval_auc-" + str(val_auc) + "\tval_f1-" + str(val_f1) + "\n")
 
-	logAndSave(name_of_model="NeuralNetwork", clf=clf, metrics=metrics, val_metrics=val_metrics)
+
+	logAndSave(name_of_model="RandomForestClassifierGS", clf=clf, metrics=metrics, val_metrics=val_metrics)
 
 
 if __name__ == "__main__":
-	NeuralNetworkModel(splitData, X_train, X_test, y_train, y_test)
+	RandomForestModel(splitData, X_train, X_test, y_train, y_test)

@@ -24,7 +24,7 @@ def SVMModel(splitData, X_train, X_test, y_train, y_test):
 	acc, pre, recall, auc, f1 = getMetrics(y_train, y_preds)
 	val_metrics = (val_acc, val_pre, val_recall, val_auc, val_f1)
 	metrics = (acc, pre, recall, auc, f1)
-	# print("acc-" + str(acc) + "\tprecision-" + str(pre) + "\trecall-" + str(recall) + "\tauc-" + str(auc) + "\tval_accuracy-" + str(val_acc) + "\tval_precision-" + str(val_pre) + "\tval_recall-" + str(val_recall) + "\tval_auc-" + str(val_auc) + "\n")
+	# print("acc-" + str(acc) + "\tprecision-" + str(pre) + "\trecall-" + str(recall) + "\tauc-" + str(auc) + "\tf1-" + str(f1) + "\tval_accuracy-" + str(val_acc) + "\tval_precision-" + str(val_pre) + "\tval_recall-" + str(val_recall) + "\tval_auc-" + str(val_auc) + "\tval_f1-" + str(val_f1) + "\n")
 
 	logAndSave(name_of_model="SVM", clf=clf, metrics=metrics, val_metrics=val_metrics)
 
