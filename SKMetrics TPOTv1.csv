@@ -1,0 +1,2 @@
+Model No.,Model Type,Accuracy,Precision,Recall,AUC,F1,Val_Accuracy,Val_Precision,Val_Recall,Val_AUC,Val_F1
+8846210596077652015,TPOT_Classifier,0.9938,0.9808,1.0,0.9954,0.9903,0.7,0.5172,0.6,0.6727,0.5556

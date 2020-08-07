@@ -4,9 +4,9 @@ from Utility import getData, printMetrics, getMetrics, logAndSave
 
 splitData = False
 if splitData:
-	X_train, X_test, y_train, y_test = getData(useImbalancer=True, useStratify=False)
+	X_train, X_test, y_train, y_test = getData(useImbalancer=True, useStratify=True)
 else:
-	X_train, y_train = getData(splitData=splitData, useImbalancer=False, useStratify=False)
+	X_train, y_train = getData(splitData=splitData, useImbalancer=False, useStratify=True)
 	X_test, y_test = None, None
 
 

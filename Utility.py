@@ -13,6 +13,7 @@ from sklearn.model_selection import train_test_split
 
 standard_scaler = None
 
+
 def getData(splitData=True, useImbalancer=False, useStratify=False):
 	global standard_scaler
 	data = pd.read_csv(filepath_or_buffer="DataSource/binary.csv")
@@ -25,7 +26,7 @@ def getData(splitData=True, useImbalancer=False, useStratify=False):
 	else:
 		stratify = None
 	if splitData:
-		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=True, stratify=stratify)
+		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=101, shuffle=True, stratify=stratify)
 	else:
 		X_train = X
 		y_train = y
@@ -62,18 +63,24 @@ def getData(splitData=True, useImbalancer=False, useStratify=False):
 		unique, counts = np.unique(y_test, return_counts=True)
 	# print("y_test\n", np.asarray((unique, counts)).T)
 	if splitData:
-		return X_train, X_test, y_train, y_test
+		return X_train, X_test, y_train.ravel(), y_test.ravel()
 	else:
-		return X_train, y_train
+		return X_train, y_train.ravel()
 
 
 def printMetrics(y_true, y_pred):
 	con_mat = confusion_matrix(y_true=y_true, y_pred=y_pred)
-	# print(con_mat)
+	print(con_mat)
 	accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
-	# print(accuracy)
-	f1score = f1_score(y_true=y_true,y_pred=y_pred)
-	# print(f1score)
+	print("accuracy: ", accuracy)
+	precision = precision_score(y_true, y_pred, zero_division=0)
+	print("precision: ", precision)
+	recall = recall_score(y_true, y_pred)
+	print("recall: ", recall)
+	roc_auc = roc_auc_score(y_true, y_pred)
+	print("roc_auc: ", roc_auc)
+	f1score = f1_score(y_true=y_true, y_pred=y_pred)
+	print("f1score: ", f1score)
 
 
 def getMetrics(y_true, y_pred):
@@ -95,14 +102,13 @@ def logAndSave(name_of_model, clf, metrics, val_metrics):
 		f.write(",".join(["Model No.", "Model Type", "Accuracy", "Precision", "Recall", "AUC", "F1", "Val_Accuracy", "Val_Precision", "Val_Recall", "Val_AUC", "Val_F1"]) + "\n")
 		f.close()
 
-
 	f = open("SKMetrics.csv", "a+")
 	msg = ",".join([str(abs(hash(datetime_of_creation))), name_of_model, str(acc), str(pre), str(recall), str(auc), str(f1), str(val_acc), str(val_pre), str(val_recall), str(val_auc), str(val_f1)])
 	f.write(msg + "\n")
 	f.close()
 	if not os.path.exists("Scaler"):
 		os.mkdir("Scaler")
-	name_of_file = "_".join([str(abs(hash(datetime_of_creation))), name_of_model,"Scaler", datetime_of_creation]) + ".pickle"
+	name_of_file = "_".join([str(abs(hash(datetime_of_creation))), name_of_model, "Scaler", datetime_of_creation]) + ".pickle"
 	if type(standard_scaler) is preprocessing.StandardScaler:
 		pickle_out = open(os.path.join("Scaler", name_of_file), "wb")
 		pickle.dump(standard_scaler, pickle_out)
