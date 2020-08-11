@@ -1,12 +1,12 @@
 import time
 
-from AdaBoost_Model_GridSearch import AdaBoostModel
-from LogisticRegression_Model_GridSearch import LogisticRegressionModel
-from NeuralNetwork_Model_GridSearch import NeuralNetworkModel
-from RandomForest_Model_GridSearch import RandomForestModel
-from SVM_Model_GridSearch import SVMModel
-from Utility import getData
-from XgBoost_Model_GridSearch import XGBClassifierModel
+from AdaBoost_Model_GridSearch import AdaBoostModel, AdaBoostModelV2
+from LogisticRegression_Model_GridSearch import LogisticRegressionModel, LogisticRegressionModelV2
+from NeuralNetwork_Model_GridSearch import NeuralNetworkModel, NeuralNetworkModelV2
+from RandomForest_Model_GridSearch import RandomForestModel, RandomForestModelV2
+from SVM_Model_GridSearch import SVMModel, SVMModelV2
+from Utility import getData, getAnnealingData
+from XgBoost_Model_GridSearch import XGBClassifierModel, XGBClassifierModelV2
 
 
 def TrainAllModels(splitData):
@@ -26,12 +26,25 @@ def TrainAllModels(splitData):
 		XGBClassifierModel(splitData=splitData, X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
 
 
-splitData = True
+def TrainAllModelsV2():
+	for i in range(5):
+		print("Current i: ", i)
+		X_train, X_test, y_train, y_test = getAnnealingData()
+
+		AdaBoostModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+		LogisticRegressionModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+		NeuralNetworkModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+		RandomForestModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+		SVMModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+		XGBClassifierModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+
+
+# splitData = True
 startTime = time.time()
-TrainAllModels(splitData=splitData)
+TrainAllModelsV2()
 print("TimeTaken: ", time.time() - startTime)
-splitData = False
-startTime = time.time()
-print("************************************************************************************************")
-TrainAllModels(splitData=splitData)
-print("TimeTaken: ", time.time() - startTime)
+# splitData = False
+# startTime = time.time()
+# print("************************************************************************************************")
+# TrainAllModels(splitData=splitData)
+# print("TimeTaken: ", time.time() - startTime)
