@@ -12,11 +12,11 @@ clf.fit(x=X_train, y=y_train, epochs=15, validation_data=(X_test, y_test))
 model = clf.export_model()
 
 y_preds = clf.predict(X_test).ravel()
-printMetrics(y_true=y_test, y_pred=y_preds, multi_class=multi_class)
+# printMetrics(y_true=y_test, y_pred=y_preds, multi_class=multi_class)
 val_acc, val_pre, val_recall, val_auc, val_f1 = getMetrics(y_true=y_test, y_pred=y_preds, multi_class=multi_class)
 
 y_preds = clf.predict(X_train).ravel()
-printMetrics(y_true=y_train, y_pred=y_preds, multi_class=multi_class)
+# printMetrics(y_true=y_train, y_pred=y_preds, multi_class=multi_class)
 acc, pre, recall, auc, f1 = getMetrics(y_true=y_train, y_pred=y_preds, multi_class=multi_class)
 
 val_metrics = (val_acc, val_pre, val_recall, val_auc, val_f1)

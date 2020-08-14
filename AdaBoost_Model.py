@@ -40,11 +40,11 @@ def AdaBoostModelV2(X_train, X_test, y_train, y_test):
 	clf.fit(X_train, y_train)
 
 	y_preds = clf.predict(X_test)
-	printMetrics(y_test, y_preds, multi_class=multi_class)
+	# printMetrics(y_test, y_preds, multi_class=multi_class)
 	val_acc, val_pre, val_recall, val_auc, val_f1 = getMetrics(y_test, y_preds, multi_class=multi_class)
 
 	y_preds = clf.predict(X_train)
-	printMetrics(y_train, y_preds, multi_class=multi_class)
+	# printMetrics(y_train, y_preds, multi_class=multi_class)
 	acc, pre, recall, auc, f1 = getMetrics(y_train, y_preds, multi_class=multi_class)
 	val_metrics = (val_acc, val_pre, val_recall, val_auc, val_f1)
 	metrics = (acc, pre, recall, auc, f1)

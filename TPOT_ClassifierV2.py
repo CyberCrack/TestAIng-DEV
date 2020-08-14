@@ -9,11 +9,11 @@ tpot = TPOTClassifier(max_time_mins=15, generations=100, population_size=100, sc
 
 tpot.fit(X_train, y_train)
 
-print(tpot.score(X_test, y_test))
+# print(tpot.score(X_test, y_test))
 y_pred = tpot.predict(X_test)
 
-printMetrics(y_test, y_pred, multi_class=multi_class)
+# printMetrics(y_test, y_pred, multi_class=multi_class)
 y_pred = tpot.predict(X_train)
-print("*" * 100)
-printMetrics(y_train, y_pred, multi_class=multi_class)
+# print("*" * 100)
+# printMetrics(y_train, y_pred, multi_class=multi_class)
 tpot.export('tpot_classifier_pipeline_v2.py')

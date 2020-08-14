@@ -39,12 +39,17 @@ def TrainAllModelsV2():
 		XGBClassifierModelV2(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
 
 
-# splitData = True
+splitData = True
+startTime = time.time()
+TrainAllModels(splitData=splitData)
+print("TimeTaken: ", time.time() - startTime)
+splitData = False
+startTime = time.time()
+print("************************************************************************************************")
+TrainAllModels(splitData=splitData)
+print("TimeTaken: ", time.time() - startTime)
+
+# For V2
 startTime = time.time()
 TrainAllModelsV2()
 print("TimeTaken: ", time.time() - startTime)
-# splitData = False
-# startTime = time.time()
-# print("************************************************************************************************")
-# TrainAllModels(splitData=splitData)
-# print("TimeTaken: ", time.time() - startTime)

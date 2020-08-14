@@ -39,11 +39,15 @@ def TrainAllModelsV2():
 
 
 # splitData = True
-startTime = time.time()
-TrainAllModelsV2()
-print("TimeTaken: ", time.time() - startTime)
+# startTime = time.time()
+# TrainAllModels(splitData=splitData)
+# print("TimeTaken: ", time.time() - startTime)
 # splitData = False
 # startTime = time.time()
 # print("************************************************************************************************")
-# TrainAllModelsV2()
+# TrainAllModels(splitData=splitData)
 # print("TimeTaken: ", time.time() - startTime)
+# For V2
+startTime = time.time()
+TrainAllModelsV2()
+print("TimeTaken: ", time.time() - startTime)

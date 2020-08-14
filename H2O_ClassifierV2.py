@@ -25,11 +25,11 @@ y_predsFrame = aml.leader.predict(trainFrame)
 y_train_pred_df = y_predsFrame.as_data_frame()
 
 y_preds = y_test_pred_df['predict'].values
-printMetrics(y_true=y_test, y_pred=y_preds, multi_class=multi_class)
+# printMetrics(y_true=y_test, y_pred=y_preds, multi_class=multi_class)
 val_acc, val_pre, val_recall, val_auc, val_f1 = getMetrics(y_test, y_preds, multi_class=multi_class)
-print("*" * 100)
+# print("*" * 100)
 y_preds = y_train_pred_df['predict'].values
-printMetrics(y_true=y_train, y_pred=y_preds, multi_class=multi_class)
+# printMetrics(y_true=y_train, y_pred=y_preds, multi_class=multi_class)
 acc, pre, recall, auc, f1 = getMetrics(y_train, y_preds, multi_class=multi_class)
 val_metrics = (val_acc, val_pre, val_recall, val_auc, val_f1)
 metrics = (acc, pre, recall, auc, f1)

@@ -21,11 +21,11 @@ exported_pipeline.fit(X_train, y_train)
 y_preds = exported_pipeline.predict(X_test)
 val_acc, val_pre, val_recall, val_auc, val_f1 = getMetrics(y_test, y_preds, multi_class=multi_class)
 val_metrics = (val_acc, val_pre, val_recall, val_auc, val_f1)
-printMetrics(y_test, y_preds, multi_class=multi_class)
+# printMetrics(y_test, y_preds, multi_class=multi_class)
 
 y_preds = exported_pipeline.predict(X_train)
 acc, pre, recall, auc, f1 = getMetrics(y_train, y_preds, multi_class=multi_class)
 metrics = (acc, pre, recall, auc, f1)
-printMetrics(y_train, y_preds, multi_class=multi_class)
+# printMetrics(y_train, y_preds, multi_class=multi_class)
 
 logAndSave(name_of_model="TPOT_ClassifierV2", clf=exported_pipeline, metrics=metrics, val_metrics=val_metrics)

@@ -19,11 +19,11 @@ tpot = TPOTClassifier(generations=100, population_size=100, scoring='roc_auc', v
 
 tpot.fit(X_train, y_train)
 
-print(tpot.score(X_test, y_test))
+# print(tpot.score(X_test, y_test))
 y_pred = tpot.predict(X_test)
 
-printMetrics(y_test, y_pred)
+# printMetrics(y_test, y_pred)
 y_pred = tpot.predict(X_train)
-print("*"*100)
-printMetrics(y_train, y_pred)
+# print("*"*100)
+# printMetrics(y_train, y_pred)
 tpot.export('tpot_classifier_pipeline.py',data_file_path='DataSource/binary.csv')
