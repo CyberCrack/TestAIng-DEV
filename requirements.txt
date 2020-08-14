@@ -1,0 +1,12 @@
+tensorflow
+h2o
+numpy
+pandas
+scikit-learn
+matplotlib
+autokeras
+xgboost
+tensorflow-gpu
+seaborn
+tpot
+mlbox
