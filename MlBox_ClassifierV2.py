@@ -3,7 +3,7 @@ from mlbox.optimisation import *
 
 from Utility import getAnnealingData, printMetrics, getMetrics, logAndSaveV2
 
-
+import pandas as pd
 
 X_train, X_test, y_train, y_test = getAnnealingData()
 multi_class = True

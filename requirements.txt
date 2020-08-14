@@ -2,7 +2,7 @@ autokeras==1.0.5
 tensorflow==2.3.0
 h2o==3.30.1.1
 numpy==1.18.5
-pandas==1.1.0
+pandas==1.0.0
 xgboost==1.1.1
 scikit-learn==0.23.2
 matplotlib==3.3.0

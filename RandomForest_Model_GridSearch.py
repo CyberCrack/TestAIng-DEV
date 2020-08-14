@@ -21,7 +21,7 @@ def RandomForestModel(splitData, X_train, X_test, y_train, y_test):
 	clf = grid_clf_acc.best_estimator_
 	if splitData:
 		y_preds = clf.predict(X_test)
-		printMetrics(y_test, y_preds)
+		# printMetrics(y_test, y_preds)
 		val_acc, val_pre, val_recall, val_auc, val_f1 = getMetrics(y_test, y_preds)
 	else:
 		val_acc, val_pre, val_recall, val_auc, val_f1 = 0, 0, 0, 0, 0
