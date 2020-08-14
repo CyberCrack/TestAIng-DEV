@@ -1,12 +1,10 @@
-tensorflow
-h2o
-numpy
-pandas
-scikit-learn
-matplotlib
-autokeras
-xgboost
-tensorflow-gpu
-seaborn
-tpot
-mlbox
+autokeras==1.0.5
+tensorflow==2.3.0
+h2o==3.30.1.1
+numpy==1.18.5
+pandas==1.1.0
+xgboost==1.1.1
+scikit-learn==0.23.2
+matplotlib==3.3.0
+TPOT==0.11.5
+#mlbox==0.8.4 Create separate env for this
